@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# DADAFA React Application
+
+A simple React application that displays "DADAFA" centered on the screen with a cyan glow effect.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -68,3 +70,64 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+---
+
+## DADAFA Project Deployment
+
+### Infrastructure Setup
+
+This application is designed to be deployed via Terraform and GitHub Actions to AWS CloudFront + S3, following the same pattern as `transcribe.cloudlords.com`.
+
+### Prerequisites
+
+1. **GitHub Repository**: Must be created via Terraform first (infrastructure-automation repo)
+2. **AWS Infrastructure**: S3 bucket, CloudFront distribution, and domain configuration
+3. **GitHub Actions**: CI/CD pipeline for automated deployment
+
+### Deployment Steps (After Terraform Setup)
+
+Once the Terraform infrastructure is in place and the GitHub repository is created:
+
+1. **Add GitHub remote**:
+   ```bash
+   git remote add origin https://github.com/shaddar91/DADAFA.git
+   ```
+
+2. **Push to GitHub**:
+   ```bash
+   git push -u origin master
+   ```
+
+3. **Automatic Deployment**: GitHub Actions will automatically:
+   - Build the React application (`npm run build`)
+   - Deploy build artifacts to S3
+   - Invalidate CloudFront cache
+   - Make the app available at: `dada.cloudlord.com`
+
+### Infrastructure Components
+
+- **Frontend**: React 19.2.0 (this repository)
+- **Hosting**: AWS S3 + CloudFront
+- **Domain**: dada.cloudlord.com
+- **CI/CD**: GitHub Actions
+- **IaC**: Terraform (from infrastructure-automation repository)
+
+### Application Features
+
+- **Centered Display**: Large "DADAFA" text in the center of the screen
+- **Modern Styling**: Cyan color (#61dafb) with glowing text shadow effect
+- **Responsive Design**: Works on all screen sizes
+- **Dark Theme**: Dark background (#282c34)
+
+### Tech Stack
+
+- React 19.2.0
+- Create React App 5.0.1
+- CSS3 for styling
+- Node.js v20.10.0
+
+---
+
+**Generated**: 2025-11-21
+**Part of**: Personal Projects Infrastructure
