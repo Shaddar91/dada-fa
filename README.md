@@ -103,13 +103,15 @@ Once the Terraform infrastructure is in place and the GitHub repository is creat
    - Build the React application (`npm run build`)
    - Deploy build artifacts to S3
    - Invalidate CloudFront cache
-   - Make the app available at: `dada.cloudlord.com`
+   - Make the app available at: `https://dada.cloud-lord.com`
 
 ### Infrastructure Components
 
 - **Frontend**: React 19.2.0 (this repository)
 - **Hosting**: AWS S3 + CloudFront
-- **Domain**: dada.cloudlord.com
+- **Domain**: https://dada.cloud-lord.com
+- **S3 Bucket**: personal-dada-544587720954
+- **CloudFront Distribution**: d1yx04rakb3oan.cloudfront.net
 - **CI/CD**: GitHub Actions
 - **IaC**: Terraform (from infrastructure-automation repository)
 
@@ -127,7 +129,31 @@ Once the Terraform infrastructure is in place and the GitHub repository is creat
 - CSS3 for styling
 - Node.js v20.10.0
 
+### GitHub Actions OIDC Authentication
+
+The deployment uses **OpenID Connect (OIDC)** for secure AWS authentication without storing access keys:
+
+- **IAM Role ARN**: arn:aws:iam::544587720954:role/personal-dada-github-actions-role
+- **AWS Region**: eu-central-1
+- **GitHub Username**: Shaddar91 (case-sensitive!)
+- **Repository**: dada-fa
+
+**Important Notes:**
+- Username capitalization matters: `Shaddar91` (capital S, capital second letter)
+- Secrets are automatically managed by Terraform
+- No AWS access keys required in GitHub repository settings
+
+### Troubleshooting
+
+**GitHub Actions Build Failure**: If deployment fails with "Cannot find directory", check:
+1. GitHub Actions workflow uses correct build directory:
+   - Create React App → `build/` directory
+   - Vite → `dist/` directory
+2. Build command matches package.json scripts
+3. OIDC role assumption succeeds (check IAM trust policy)
+
 ---
 
 **Generated**: 2025-11-21
+**Last Updated**: 2025-11-21
 **Part of**: Personal Projects Infrastructure
